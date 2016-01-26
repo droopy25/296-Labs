@@ -34,8 +34,8 @@ namespace CityWeb.Controllers
         }
         public ActionResult Articles()
         {
-            List<News> stuff = things.Stuff[0].News;
-            return View(stuff);
+            //List<News> stuff = things.Stuff[0].News;
+            return View();
         }
     }
 }
