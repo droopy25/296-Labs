@@ -50,6 +50,7 @@ namespace CityWeb.Models
             topic2.Messages.Add(message3);
             topic2.Messages.Add(message4);
             context.Topics.Add(topic1);
+            context.Topics.Add(topic2);
 
             base.Seed(context);
         }
