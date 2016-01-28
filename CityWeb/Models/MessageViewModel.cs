@@ -13,7 +13,6 @@ namespace CityWeb.Models
         public string Body { get; set; }
         public string Date { get; set; }
         public string From { get; set; }
-        public Member Members { get; set; }
         public Topic TopicName { get; set; }
     }
 }

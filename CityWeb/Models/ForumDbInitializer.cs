@@ -10,8 +10,7 @@ namespace CityWeb.Models
     {
         protected override void Seed(CityWebContext context)
         {
-            Member member1 = new Member { FirstName = "Tony", LastName = "Plueard" };
-            Member member2 = new Member { FirstName = "Tammi", LastName = "Plueard" };
+            
             Topic topic1 = new Topic { Category = "For Sale" };
             Topic topic2 = new Topic { Category = "Help Wanted" };
             Message message1 = new Message
@@ -19,7 +18,7 @@ namespace CityWeb.Models
                 Subject = "Chevy Tahoe",
                 Body = "I have a 2010 Chevy Tahoe great condition for a great price",
                 Date = DateTime.Now.ToString(),
-                From = member1.ToString()
+                From = "Tony Plueard"
                 
             };
             Message message2 = new Message
@@ -27,14 +26,14 @@ namespace CityWeb.Models
                 Subject = "Scion TC",
                 Body = "2012 Scion TC for sale",
                 Date = DateTime.Today.ToString(),
-                From = member2.ToString()
+                From = "Tammi Plueard"
             };
             Message message3 = new Message
             {
                 Subject = "Clerk Needed",
                 Body = "Fast paced corner market in need of clerk",
                 Date = DateTime.Now.ToString(),
-                From = member1.ToString()
+                From = "Tony Plueard"
 
             };
             Message message4 = new Message
@@ -42,7 +41,7 @@ namespace CityWeb.Models
                 Subject = "Programmer Needed",
                 Body = "Programmer needed at local IT company",
                 Date = DateTime.Now.ToString(),
-                From = member1.ToString()
+                From = "Tammi Plueard"
 
             };
             topic1.Messages.Add(message1);
