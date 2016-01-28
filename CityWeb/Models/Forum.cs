@@ -8,8 +8,10 @@ namespace CityWeb.Models
     public class Forum
     {
         public int ForumID { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Email { get; set; }
+        List<Topic> topics = new List<Topic>();
+        public List<Topic> Topics
+        {
+            get { return topics; }
+        }    
     }
 }

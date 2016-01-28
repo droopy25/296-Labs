@@ -10,107 +10,107 @@ using CityWeb.Models;
 
 namespace CityWeb.Controllers
 {
-    public class ForumController : Controller
+    public class TopicsController : Controller
     {
         private CityWebContext db = new CityWebContext();
 
-        // GET: Forum
+        // GET: Topics
         public ActionResult Index()
         {
-            return View(db.Fora.ToList());
+            return View(db.Topics.ToList());
         }
 
-        // GET: Forum/Details/5
+        // GET: Topics/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Forum forum = db.Fora.Find(id);
-            if (forum == null)
+            Topic topic = db.Topics.Find(id);
+            if (topic == null)
             {
                 return HttpNotFound();
             }
-            return View(forum);
+            return View(topic);
         }
 
-        // GET: Forum/Create
+        // GET: Topics/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Forum/Create
+        // POST: Topics/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ForumID,FirstName,LastName,Email")] Forum forum)
+        public ActionResult Create([Bind(Include = "TopicID,Category")] Topic topic)
         {
             if (ModelState.IsValid)
             {
-                db.Fora.Add(forum);
+                db.Topics.Add(topic);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(forum);
+            return View(topic);
         }
 
-        // GET: Forum/Edit/5
+        // GET: Topics/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Forum forum = db.Fora.Find(id);
-            if (forum == null)
+            Topic topic = db.Topics.Find(id);
+            if (topic == null)
             {
                 return HttpNotFound();
             }
-            return View(forum);
+            return View(topic);
         }
 
-        // POST: Forum/Edit/5
+        // POST: Topics/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ForumID,FirstName,LastName,Email")] Forum forum)
+        public ActionResult Edit([Bind(Include = "TopicID,Category")] Topic topic)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(forum).State = EntityState.Modified;
+                db.Entry(topic).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(forum);
+            return View(topic);
         }
 
-        // GET: Forum/Delete/5
+        // GET: Topics/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Forum forum = db.Fora.Find(id);
-            if (forum == null)
+            Topic topic = db.Topics.Find(id);
+            if (topic == null)
             {
                 return HttpNotFound();
             }
-            return View(forum);
+            return View(topic);
         }
 
-        // POST: Forum/Delete/5
+        // POST: Topics/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Forum forum = db.Fora.Find(id);
-            db.Fora.Remove(forum);
+            Topic topic = db.Topics.Find(id);
+            db.Topics.Remove(topic);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

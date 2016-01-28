@@ -22,5 +22,7 @@ namespace CityWeb.Models
         public System.Data.Entity.DbSet<CityWeb.Models.Forum> Fora { get; set; }
 
         public System.Data.Entity.DbSet<CityWeb.Models.Message> Messages { get; set; }
+
+        public System.Data.Entity.DbSet<CityWeb.Models.Topic> Topics { get; set; }
     }
 }

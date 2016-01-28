@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CityWeb.Models.Message>
+﻿@model IEnumerable<CityWeb.Models.MessageViewModel>
 
 @{
     ViewBag.Title = "Index";
@@ -12,9 +12,7 @@
 </p>
 <table class="table">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Category)
-        </th>
+        
         <th>
             @Html.DisplayNameFor(model => model.Subject)
         </th>
@@ -32,9 +30,7 @@
 
 @foreach (var item in Model) {
     <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Category)
-        </td>
+        
         <td>
             @Html.DisplayFor(modelItem => item.Subject)
         </td>

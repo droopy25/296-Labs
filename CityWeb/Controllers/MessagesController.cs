@@ -21,13 +21,12 @@ namespace CityWeb.Controllers
             foreach (Message m in db.Messages)
             {
                 var messageVm = new MessageViewModel();
-                messageVm.Category = m.Category;
+                
                 messageVm.MessageID = m.MessageID;
                 messageVm.Subject = m.Subject;
                 messageVm.Date = m.Date;
                 messageVm.Body = m.Body;
-                //foreach(Book sb in db.Stacks.ToList()[0].Books)
-                messageVm.ForumItem = db.Fora.ToList()[0];
+                messageVm.TopicName = db.Topics.ToList()[0];
 
 
                 messages.Add(messageVm);
