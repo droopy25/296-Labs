@@ -1,4 +1,4 @@
-﻿@model CityWeb.Models.Message
+﻿@model CityWeb.Models.MessageViewModel
 
 @{
     ViewBag.Title = "Details";
@@ -42,6 +42,13 @@
 
         <dd>
             @Html.DisplayFor(model => model.From)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TopicName.Category)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TopicName.Category)
         </dd>
 
     </dl>

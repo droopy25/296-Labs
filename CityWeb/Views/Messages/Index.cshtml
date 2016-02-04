@@ -26,7 +26,7 @@
             @Html.DisplayNameFor(model => model.From)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.TopicName.Messages)
+            @Html.DisplayNameFor(model => model.TopicName.Category)
         </th>
         <th></th>
     </tr>
@@ -47,7 +47,7 @@
             @Html.DisplayFor(modelItem => item.From)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.TopicName.Messages)
+            @Html.DisplayFor(modelItem => item.TopicName.Category)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.MessageID }) |

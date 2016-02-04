@@ -17,21 +17,7 @@ namespace CityWeb.Controllers
         // GET: Messages
         public ActionResult Index()
         {
-            var messages = new List<MessageViewModel>();
-            foreach (Message m in db.Messages)
-            {
-                var messageVm = new MessageViewModel();
-                
-                messageVm.MessageID = m.MessageID;
-                messageVm.Subject = m.Subject;
-                messageVm.Date = m.Date;
-                messageVm.Body = m.Body;
-                messageVm.TopicName = db.Topics.ToList()[0];
-
-
-                messages.Add(messageVm);
-            }
-            return View(messages); ;
+            return View(GetTopicsandMessages(0)); 
         }
 
         // GET: Messages/Details/5
@@ -41,7 +27,7 @@ namespace CityWeb.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Message message = db.Messages.Find(id);
+            MessageViewModel message = GetTopicandMessage(id);
             if (message == null)
             {
                 return HttpNotFound();
@@ -128,7 +114,60 @@ namespace CityWeb.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+        public ActionResult Search()
+        {
+            return View();
+        }
 
+        [HttpPost]
+        public ActionResult Search(string searchTerm)
+        {
+            //Get a list of message view models
+            List<MessageViewModel> messageVMs = new List<MessageViewModel>();
+
+            //Get the subject that matches the search term
+            var message = (from m in db.Messages
+                                    where m.Subject.Contains(searchTerm)
+                                    select m).ToList<Message>();
+            //In a loop:            
+            //Create view models for the subject and put then in the list of view models
+            foreach(Message m in message)
+            {
+                //TODO: Get the topic that contains each message
+                var topic = (from t in db.Topics
+                             where t.TopicID == m.TopicID
+                             select t).FirstOrDefault();
+                //Get the topic that contains the subject
+                messageVMs.Add(new MessageViewModel() { Subject = m.Subject,
+                                                        TopicName = topic,
+                                                        Body = m.Body,
+                                                        Date = m.Date,
+                                                        From = m.From,
+                                                        MessageID = m.MessageID});
+            }
+
+            /*List<Message> message = from m in db.Messages
+                                    join t in db.Topics on m.TopicID equals t.TopicID
+                                    where m.Subject.Contains(searchTerm)
+                                    select new List<MessageViewModel>
+                                    {
+                                        MessageID = m.MessageID,
+                                        Subject = m.Subject,
+                                        Body = m.Body,
+                                        Date = m.Date,
+                                        From = m.From,
+                                        TopicName = t
+                                    };*/
+            //If there is just one book display the detail view 
+            if (messageVMs.Count == 1)
+                return View("Details", messageVMs[0]);
+            else 
+                return View("Index", messageVMs);
+            
+
+            //If there is multiple books display the index view
+
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -136,6 +175,46 @@ namespace CityWeb.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+        private List<MessageViewModel> GetTopicsandMessages (int? messageID)
+        {
+            var messages = new List<MessageViewModel>();
+            var topics = from topic in db.Topics.Include("messages")
+                         select topic;
+            foreach (Topic t in topics)
+            {
+                foreach (Message m in t.Messages)
+                {
+                    if (m.MessageID == messageID || 0 == messageID)
+                    {
+                        var messageVm = new MessageViewModel();
+                        messageVm.Subject = m.Subject;
+                        messageVm.Date = m.Date;
+                        //messageVm.Body = m.Body;
+                        messageVm.From = m.From;
+                        messageVm.TopicName = t;
+                        messageVm.MessageID = m.MessageID;
+                        messages.Add(messageVm);
+                    }
+                }
+            }
+            return messages;
+        }
+        private MessageViewModel GetTopicandMessage(int? messageID)
+        {
+            MessageViewModel messageVM = (from m in db.Messages
+                                          join t in db.Topics on m.TopicID equals t.TopicID
+                                          where m.MessageID == messageID
+                                          select new MessageViewModel
+                                          {
+                                              MessageID = m.MessageID,
+                                              Subject = m.Subject,
+                                              Body = m.Body,
+                                              Date = m.Date,
+                                              From = m.From,
+                                              TopicName = t
+                                          }).FirstOrDefault();
+            return messageVM;
         }
     }
 }
