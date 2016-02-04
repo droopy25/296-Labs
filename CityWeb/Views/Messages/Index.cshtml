@@ -16,14 +16,17 @@
         <th>
             @Html.DisplayNameFor(model => model.Subject)
         </th>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.Body)
-        </th>
+        </th>*@
         <th>
             @Html.DisplayNameFor(model => model.Date)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.From)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TopicName.Messages)
         </th>
         <th></th>
     </tr>
@@ -34,14 +37,17 @@
         <td>
             @Html.DisplayFor(modelItem => item.Subject)
         </td>
-        <td>
+        @*<td>
             @Html.DisplayFor(modelItem => item.Body)
-        </td>
+        </td>*@
         <td>
             @Html.DisplayFor(modelItem => item.Date)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.From)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TopicName.Messages)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.MessageID }) |
